@@ -1,0 +1,188 @@
+{
+  "plugin_type": "extractors",
+  "name": "tap-googleads",
+  "namespace": "tap_googleads",
+  "variant": "matatika",
+  "label": "Google Ads",
+  "docs": "https://www.matatika.com/docs/instant-insights/tap-googleads/",
+  "repo": "https://github.com/Matatika/tap-googleads",
+  "pip_url": "git+https://github.com/Matatika/tap-googleads.git@v0.13.0",
+  "description": "Google Ads is an online advertising platform that allows businesses to create and display ads to potential customers.\n\nGoogle Ads, formerly known as Google AdWords, is a pay-per-click (PPC) advertising platform that enables businesses to create and display ads to potential customers when they search for specific products or services on Google. Advertisers bid on specific keywords and pay for each click on their ads, with the cost per click (CPC) varying depending on the competition for the keyword. Google Ads also offers a range of targeting options, including location, demographics, and interests, allowing businesses to reach their ideal audience. Additionally, Google Ads provides detailed analytics and reporting, allowing advertisers to track the performance of their ads and make data-driven decisions to optimize their campaigns.\n### Prerequisites\nTo obtain the required settings for connecting to Google Ads, follow these steps:\n\n1. OAuth identity provider authorization endpoint used to create and refresh tokens: This endpoint is specific to the identity provider you are using. You can find this information in the documentation provided by the identity provider.\n\n2. OAuth scopes we need to request access to: The required OAuth scopes depend on the specific actions you want to perform in Google Ads. You can find a list of available scopes in the Google Ads API documentation.\n\n3. Access Token: To obtain an access token, you need to authenticate with Google using OAuth 2.0. Once you have authenticated, you will receive an access token that you can use to make API requests. You can find more information on how to obtain an access token in the Google Ads API documentation.\n\n4. OAuth Refresh Token: The refresh token is obtained during the initial authentication process and is used to obtain a new access token when the current one expires. You can find more information on how to obtain a refresh token in the Google Ads API documentation.\n\n5. Developer Token: The developer token is a unique identifier that is used to track API usage and ensure compliance with Google Ads policies. You can obtain a developer token by creating a Google Ads account and registering for the API.\n\n6. Customer Id: The customer ID is a unique identifier for each Google Ads account. You can find your customer ID in the Google Ads UI or by using the Google Ads API.",
+  "logo_url": "/assets/images/datasource/tap-googleads.svg",
+  "capabilities": [
+    "discover",
+    "catalog",
+    "state"
+  ],
+  "settings": [
+    {
+      "name": "oauth_credentials.authorization_url",
+      "kind": "string",
+      "value": "https://oauth2.googleapis.com/token",
+      "label": "OAuth identity provider authorization endpoint used create and refresh tokens",
+      "description": "The endpoint used to create and refresh OAuth tokens.",
+      "hidden": true,
+      "sensitive": false,
+      "required": "true",
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "oauth_credentials.scope",
+      "kind": "string",
+      "value": "https://www.googleapis.com/auth/adwords",
+      "label": "OAuth scopes we need to request access to",
+      "description": "The specific permissions we need to request access to in order to use the Google Ads API.",
+      "hidden": true,
+      "sensitive": false,
+      "required": "true",
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "oauth_credentials.access_token",
+      "kind": "string",
+      "label": "Access Token",
+      "description": "The token used to authenticate and authorize API requests.",
+      "hidden": true,
+      "sensitive": false,
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "oauth_credentials.refresh_token",
+      "kind": "string",
+      "label": "OAuth Refresh Token",
+      "description": "The token used to refresh the access token when it expires.",
+      "hidden": true,
+      "sensitive": false,
+      "required": "true",
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "oauth_credentials.refresh_proxy_url",
+      "kind": "string",
+      "label": "Optional - will be called with 'oauth_credentials.refresh_token' to refresh the access token",
+      "description": "An optional function that will be called to refresh the access token using the refresh token.",
+      "hidden": true,
+      "sensitive": false,
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "oauth_credentials.refresh_proxy_url_auth",
+      "kind": "string",
+      "label": "Optional - Sets Authorization header on 'oauth_credentials.refresh_url' request",
+      "description": "An optional setting that sets the Authorization header on the request to refresh the access token.",
+      "hidden": true,
+      "sensitive": false,
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "oauth_credentials.client_id",
+      "kind": "string",
+      "label": "Optional - OAuth Client ID used if refresh_proxy_url not supplied",
+      "description": "An optional setting that specifies the OAuth Client ID to use if a refresh proxy URL is not supplied.",
+      "hidden": true,
+      "sensitive": false,
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "oauth_credentials.client_secret",
+      "kind": "string",
+      "label": "Optional - OAuth Client Secret used if refresh_proxy_url not supplied",
+      "description": "An optional setting that specifies the OAuth Client Secret to use if a refresh proxy URL is not supplied.",
+      "hidden": true,
+      "sensitive": false,
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "start_date",
+      "kind": "date_iso8601",
+      "label": "Start Date",
+      "description": "ISO start date for all of the streams that use date-based filtering. Defaults to 90 days before the current day.",
+      "hidden": false,
+      "sensitive": false,
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "end_date",
+      "kind": "date_iso8601",
+      "label": "End Date",
+      "description": "ISO end date for all of the streams that use date-based filtering. Defaults to the current day.",
+      "hidden": false,
+      "sensitive": false,
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "developer_token",
+      "kind": "string",
+      "value": "DYSuW0qdfU5-jti8Zdh1HQ",
+      "label": "Developer Token",
+      "description": "The token used to identify the developer making the API request.",
+      "hidden": true,
+      "sensitive": false,
+      "required": "true",
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "login_customer_id",
+      "kind": "string",
+      "label": "Login Customer ID",
+      "description": "If authenticated as a manager account, `login_customer_id` should be set to the customer ID of the manager account. Read about the [login customer ID concept](https://developers.google.com/search-ads/reporting/concepts/login-customer-id) for more info.",
+      "hidden": false,
+      "sensitive": false,
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "customer_ids",
+      "kind": "array",
+      "label": "Customer IDs",
+      "description": "Sync data for the given customer accounts only. Defaults to all customer accounts discoverable via the authenticated principal.",
+      "hidden": false,
+      "sensitive": false,
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "enable_click_view_report_stream",
+      "kind": "boolean",
+      "value": false,
+      "label": "Enable Click View Report Stream",
+      "description": "Enable the click view report stream (requires certain permissions to be set for your Google Ads account(s)). Not enabled (`false`) by default.",
+      "hidden": false,
+      "sensitive": false,
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "custom_queries",
+      "kind": "array",
+      "label": "Custom Queries",
+      "description": "A list of custom queries to run. Each query will be assigned a stream with the name specified in the `name` field.\n\nCustom query definition:\n- `name` (required)`\n\n  The name to assign to the query stream.\n\n- `query` (required)\n\n  A custom defined GAQL query for building the report (do not include `segments.date` filter in the query - it is automatically added).\n\n  For more information, refer to [Google's documentation](https://developers.google.com/google-ads/api/fields/v19/overview_query_builder).\n\n- `add_date_filter_to_query` (default: `true`)\n\n  Whether to add date filter to the query\n\n- `primary_keys` (default: `[]` i.e. no primary keys)\n\n  Properties name(s) to use as the stream primary key(s).\n\n  Note that this tap performs schema flattening automatically, so both top-level and nested properties (in the form `<parent_property>__<child_property`) can be referenced.\n\n- `replication_method` (default: `INCREMENTAL`, possible values: [`INCREMENTAL` | `FULL_TABLE`])\n\n  Stream [replication method](https://docs.meltano.com/guide/integration/#replication-methods).\n\n- `replication_key` (required when `replication_method` is set to `INCREMENTAL`)\n\n  Properties name(s) to use as the stream [replication key](https://docs.meltano.com/guide/integration/#replication-key).\n\n  Note that this tap performs schema flattening automatically, so both top-level and nested properties (in the form `<parent_property>__<child_property`) can be referenced.\n",
+      "hidden": false,
+      "sensitive": false,
+      "configured": false,
+      "protected": false
+    },
+    {
+      "name": "api_version",
+      "kind": "string",
+      "value": "v22",
+      "label": "API Version",
+      "description": "API version to use - see [versioning](https://developers.google.com/google-ads/api/docs/concepts/versioning) and [release notes](https://developers.google.com/google-ads/api/docs/release-notes)/[upgrade your API version](https://developers.google.com/google-ads/api/docs/upgrade).",
+      "hidden": false,
+      "sensitive": false,
+      "configured": false,
+      "protected": false
+    }
+  ]
+}
